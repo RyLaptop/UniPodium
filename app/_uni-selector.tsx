@@ -52,7 +52,7 @@ export function UniSelector({ currentUni }: { currentUni: University | null }) {
                 backgroundColor: uni.primary,
                 color: uni.secondary,
                 boxShadow: isSelected
-                  ? `0 0 0 2px white, 0 6px 18px -4px ${uni.primary}99, 0 0 0 5px ${uni.primary}33`
+                  ? `0 6px 18px -4px ${uni.primary}99, 0 0 0 1px ${uni.primary}55`
                   : "0 1px 2px rgba(15,23,42,0.08)",
               }}
               className="relative px-3.5 py-3.5 rounded-xl text-left transition-all duration-200 hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0 active:scale-[0.98]"
