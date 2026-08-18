@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Wrench } from "lucide-react";
 import { toggleOpenHouse, toggleTestMode } from "@/app/(app)/open-house/actions";
 
 type Props = {
@@ -34,7 +35,10 @@ export function OpenHouseToggle({ university, isActive, isTestMode }: Props) {
     <div className="space-y-3">
       <div className="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
         <div>
-          <p className="font-medium text-sm">{active ? "🟢 Open House is LIVE" : "⚫ Open House is OFF"}</p>
+          <p className="font-medium text-sm flex items-center gap-1.5">
+            <span className={`w-2 h-2 rounded-full shrink-0 ${active ? "bg-green-500" : "bg-gray-300"}`} />
+            {active ? "Open House is LIVE" : "Open House is OFF"}
+          </p>
           <p className="text-xs text-gray-500 mt-0.5">
             {active ? "All students can see and browse booths." : "Page is hidden from students."}
           </p>
@@ -54,7 +58,10 @@ export function OpenHouseToggle({ university, isActive, isTestMode }: Props) {
 
       <div className="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
         <div>
-          <p className="font-medium text-sm">{testMode ? "🔧 Test Mode ON" : "Test Mode OFF"}</p>
+          <p className="font-medium text-sm flex items-center gap-1.5">
+            {testMode && <Wrench className="w-3.5 h-3.5" strokeWidth={2.5} />}
+            {testMode ? "Test Mode ON" : "Test Mode OFF"}
+          </p>
           <p className="text-xs text-gray-500 mt-0.5">
             {testMode
               ? "Admins can preview open house with 20 fake orgs, even while inactive."

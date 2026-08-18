@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { MapPin } from "lucide-react";
 import { createBrowserClient } from "@supabase/ssr";
 import { UNIVERSITIES } from "@/lib/university-data";
 import type { University } from "@/lib/university-data";
@@ -184,9 +185,10 @@ export function MapPageClient() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="text-xs text-brand hover:underline mt-0.5 block"
+                    className="text-xs text-brand hover:underline mt-0.5 flex items-center gap-1"
                   >
-                    📍 {m.location}
+                    <MapPin className="w-3 h-3 shrink-0" strokeWidth={2.5} />
+                    {m.location}
                   </a>
                 )}
               </Link>

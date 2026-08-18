@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Video, Link2, Calendar, IdCard, Check } from "lucide-react";
 import { CATEGORY_COLOR, type BoothRow, type BoothEventRow } from "@/lib/open-house";
 import { stampPassport } from "../actions";
 
@@ -75,17 +76,19 @@ export function BoothDetail({ booth, events, initialStamp, isAuthed }: Props) {
       {/* Passport stamp tracker */}
       {isAuthed && (
         <div className="flex gap-4 text-xs bg-gray-50 rounded-xl px-4 py-3">
-          <span className={stamp?.video_watched ? "text-brand font-semibold" : "text-gray-400"}>
-            📹 Video{stamp?.video_watched ? " ✓" : ""}
+          <span className={`inline-flex items-center gap-1 ${stamp?.video_watched ? "text-brand font-semibold" : "text-gray-400"}`}>
+            <Video className="w-3.5 h-3.5" strokeWidth={2.25} /> Video{stamp?.video_watched && <Check className="w-3 h-3" strokeWidth={3} />}
           </span>
-          <span className={stamp?.link_clicked ? "text-brand font-semibold" : "text-gray-400"}>
-            🔗 Link{stamp?.link_clicked ? " ✓" : ""}
+          <span className={`inline-flex items-center gap-1 ${stamp?.link_clicked ? "text-brand font-semibold" : "text-gray-400"}`}>
+            <Link2 className="w-3.5 h-3.5" strokeWidth={2.25} /> Link{stamp?.link_clicked && <Check className="w-3 h-3" strokeWidth={3} />}
           </span>
-          <span className={stamp?.event_added ? "text-brand font-semibold" : "text-gray-400"}>
-            📅 Event{stamp?.event_added ? " ✓" : ""}
+          <span className={`inline-flex items-center gap-1 ${stamp?.event_added ? "text-brand font-semibold" : "text-gray-400"}`}>
+            <Calendar className="w-3.5 h-3.5" strokeWidth={2.25} /> Event{stamp?.event_added && <Check className="w-3 h-3" strokeWidth={3} />}
           </span>
           {(stamp?.video_watched || stamp?.link_clicked || stamp?.event_added) && (
-            <span className="ml-auto text-brand font-semibold">🪪 Stamped!</span>
+            <span className="ml-auto text-brand font-semibold inline-flex items-center gap-1">
+              <IdCard className="w-3.5 h-3.5" strokeWidth={2.5} /> Stamped!
+            </span>
           )}
         </div>
       )}
@@ -209,7 +212,8 @@ export function BoothDetail({ booth, events, initialStamp, isAuthed }: Props) {
                   <a href={calUrl} target="_blank" rel="noopener noreferrer"
                     onClick={() => doStamp("event")}
                     className="inline-flex items-center gap-1 text-xs text-brand hover:underline">
-                    📅 Add to Google Calendar{isAuthed && !stamp?.event_added ? " (+1 entry)" : ""}
+                    <Calendar className="w-3.5 h-3.5" strokeWidth={2.25} />
+                    Add to Google Calendar{isAuthed && !stamp?.event_added ? " (+1 entry)" : ""}
                   </a>
                 </li>
               );

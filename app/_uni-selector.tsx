@@ -36,10 +36,10 @@ export function UniSelector({ currentUni }: { currentUni: University | null }) {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search your university…"
-        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+        className="up-input text-center"
       />
 
-      <div className="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto pr-1">
+      <div className="grid grid-cols-2 gap-2.5 max-h-72 overflow-y-auto pr-1 -mr-1">
         {filtered.map(([key, uni]) => {
           const isSelected = selected === key;
           return (
@@ -50,17 +50,21 @@ export function UniSelector({ currentUni }: { currentUni: University | null }) {
               style={{
                 backgroundColor: uni.primary,
                 color: uni.secondary,
-                outline: isSelected ? `3px solid ${uni.secondary}` : undefined,
-                outlineOffset: isSelected ? "2px" : undefined,
+                boxShadow: isSelected
+                  ? `0 0 0 2px white, 0 0 0 4px ${uni.primary}`
+                  : "0 1px 2px rgba(15,23,42,0.08)",
               }}
-              className={`relative px-3 py-3 rounded-xl text-left transition-all ${
-                isSelected ? "ring-2 ring-offset-1" : "hover:opacity-90"
-              }`}
+              className="relative px-3.5 py-3.5 rounded-xl text-left transition-all duration-150 hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0 active:scale-[0.98]"
             >
-              <p className="font-bold text-sm leading-tight">{uni.label}</p>
+              <p className="font-display font-bold text-sm leading-tight">{uni.label}</p>
               <p className="text-xs opacity-75 leading-tight mt-0.5 truncate">{uni.shortName}</p>
               {isSelected && (
-                <span className="absolute top-1.5 right-2 text-xs font-bold" style={{ color: uni.secondary }}>✓</span>
+                <span
+                  className="absolute top-2 right-2.5 text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: uni.secondary, color: uni.primary }}
+                >
+                  ✓
+                </span>
               )}
             </button>
           );
@@ -73,21 +77,18 @@ export function UniSelector({ currentUni }: { currentUni: University | null }) {
       <button
         type="submit"
         disabled={!selected || loading}
-        className="w-full py-3 bg-blue-500 text-white rounded-xl text-sm font-semibold hover:bg-blue-600 disabled:opacity-40 transition"
+        className="up-btn-primary w-full"
       >
         {loading ? "Loading…" : selected ? `Browse as ${UNIVERSITIES[selected].label} →` : "Select a university to continue"}
       </button>
 
       <div className="flex gap-3 pt-1">
-        <Link
-          href="/login"
-          className="flex-1 py-2.5 border border-gray-300 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-100 transition text-center"
-        >
+        <Link href="/login" className="up-btn-secondary flex-1">
           Sign in
         </Link>
         <Link
           href="/login?mode=signup"
-          className="flex-1 py-2.5 bg-gray-900 text-white rounded-xl text-sm font-medium hover:bg-gray-800 transition text-center"
+          className="up-btn flex-1 bg-gray-900 text-white hover:bg-gray-800"
         >
           Sign up
         </Link>

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { MapPin } from "lucide-react";
 import { createServiceClient } from "@/lib/supabase/service";
 import { PostActions } from "../_post-actions";
 import { createClient } from "@/lib/supabase/server";
@@ -104,7 +105,12 @@ export default async function BulletinPostPage({
               minute: "2-digit",
             })}
           </p>
-          {post.event_location && <p>📍 {post.event_location}</p>}
+          {post.event_location && (
+            <p className="flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-gray-400 shrink-0" strokeWidth={2.25} />
+              {post.event_location}
+            </p>
+          )}
           {org && (
             <p>
               Hosted by{" "}

@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Tag } from "lucide-react";
 import { makeOfficer, promoteMember, demoteMember, demoteToOfficer, removeMember, setMemberTitle } from "../actions";
 
 type ActiveMember = {
@@ -131,7 +132,7 @@ function MemberRow({ orgId, member, isSelf }: { orgId: string; member: ActiveMem
             className="text-xs px-2 py-0.5 border border-gray-200 rounded hover:bg-gray-50 text-gray-500"
             title="Set title"
           >
-            🏷️
+            <Tag className="w-3 h-3" strokeWidth={2.5} />
           </button>
           {member.role === "director" && (
             <button onClick={demoteToStaff} disabled={pending}

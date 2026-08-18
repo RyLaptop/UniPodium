@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { Store, Wrench } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { getUniversity } from "@/lib/university";
@@ -30,8 +31,8 @@ export default async function OpenHousePage() {
   if (!isActive && !(isAdmin && isTestMode)) {
     return (
       <div className="flex flex-col items-center justify-center py-32 text-center space-y-3">
-        <p className="text-4xl">🎪</p>
-        <h1 className="text-2xl font-bold text-gray-800">Podium Open House</h1>
+        <Store className="w-10 h-10 text-gray-300" strokeWidth={1.75} />
+        <h1 className="font-display text-2xl font-bold text-gray-800">Podium Open House</h1>
         <p className="text-gray-500 text-sm max-w-sm">
           Open House isn&apos;t live yet. Check back soon — all campus orgs will be showcasing their booths here for 48 hours.
         </p>
@@ -86,10 +87,12 @@ export default async function OpenHousePage() {
       <div className="rounded-2xl overflow-hidden bg-gradient-to-r from-brand to-brand-dark p-6 sm:p-8 text-white">
         <div className="flex items-start justify-between flex-wrap gap-4">
           <div>
-            <p className="text-sm font-semibold opacity-75 uppercase tracking-wide">
-              {isAdmin && isTestMode && !isActive ? "🔧 Admin Test Mode" : "🎪 Live Now"}
+            <p className="text-sm font-semibold opacity-75 uppercase tracking-wide flex items-center gap-1.5">
+              {isAdmin && isTestMode && !isActive
+                ? <><Wrench className="w-3.5 h-3.5" strokeWidth={2.5} /> Admin Test Mode</>
+                : <><Store className="w-3.5 h-3.5" strokeWidth={2.5} /> Live Now</>}
             </p>
-            <h1 className="text-3xl font-bold mt-1">Podium Open House</h1>
+            <h1 className="font-display text-3xl font-extrabold mt-1">Podium Open House</h1>
             <p className="text-sm opacity-80 mt-1">
               Discover every org on campus — watch, explore, and find your people.
             </p>

@@ -15,12 +15,29 @@ export default async function HomePage() {
   const currentUni = (jar.get("uni")?.value ?? null) as University | null;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-sm space-y-10 text-center">
+    <div className="min-h-screen relative flex flex-col items-center justify-center bg-gray-50 px-4 py-16 overflow-hidden">
+      {/* Ambient texture — a quiet dot-grid + soft brand-tinted glow behind the hero */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(15,23,42,0.06) 1px, transparent 0)",
+          backgroundSize: "24px 24px",
+          maskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 100%)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[640px] h-[640px] rounded-full opacity-[0.14] blur-3xl"
+        style={{ backgroundColor: "rgb(var(--color-brand))" }}
+      />
+
+      <div className="relative w-full max-w-sm space-y-10 text-center">
 
         {/* Logo */}
-        <div className="flex flex-col items-center gap-4">
-          <svg width="64" height="64" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <div className="flex flex-col items-center gap-5">
+          <svg width="52" height="52" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-sm">
             <circle cx="40" cy="10" r="4.5" fill="#3B82F6"/>
             <line x1="40" y1="14.5" x2="40" y2="22" stroke="#3B82F6" strokeWidth="2.5" strokeLinecap="round"/>
             <path d="M14 22 L66 22 L60 36 L20 36 Z" fill="#0F172A"/>
@@ -29,10 +46,13 @@ export default async function HomePage() {
             <path d="M22 62 L58 62 L60 70 L20 70 Z" fill="#0F172A"/>
           </svg>
           <div>
-            <h1 className="text-4xl font-bold tracking-tight" style={{ letterSpacing: "-0.03em" }}>
-              <span className="text-gray-900">Uni</span><span className="text-blue-500">Podium</span>
+            <p className="up-eyebrow mb-2">Cross-campus speaker platform</p>
+            <h1 className="font-display text-5xl font-extrabold tracking-tight text-gray-900" style={{ letterSpacing: "-0.03em" }}>
+              Uni<span style={{ color: "rgb(var(--color-brand))" }}>Podium</span>
             </h1>
-            <p className="text-gray-500 text-sm mt-1.5">Cross-campus speaker platform</p>
+            <p className="text-gray-500 text-sm mt-2.5 max-w-xs mx-auto leading-relaxed">
+              Every org, every meeting, one place to find your slot.
+            </p>
           </div>
         </div>
 
