@@ -36,7 +36,7 @@ export function SiteFeedbackWidget() {
         onClick={() => setOpen(true)}
         className="w-full border border-dashed border-gray-300 rounded-xl p-4 text-sm text-gray-500 hover:border-brand hover:text-brand transition text-center"
       >
-        💬 Share feedback or feature ideas
+        Share feedback or feature ideas
       </button>
     );
   }

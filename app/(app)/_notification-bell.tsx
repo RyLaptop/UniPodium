@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { MessageCircle, ClipboardList, Pin, Users, Calendar, Bell, type LucideIcon } from "lucide-react";
 import { dismissNotification } from "./notifications/actions";
 
 export type Notification = {
@@ -118,16 +119,17 @@ export function NotificationBell({ initialNotifs }: { initialNotifs: Notificatio
 }
 
 function TypeIcon({ type }: { type: string }) {
-  const icons: Record<string, string> = {
-    chat_message: "💬",
-    request_update: "📋",
-    bulletin_update: "📌",
-    org_member_request: "👥",
-    org_meeting: "📅",
+  const icons: Record<string, LucideIcon> = {
+    chat_message: MessageCircle,
+    request_update: ClipboardList,
+    bulletin_update: Pin,
+    org_member_request: Users,
+    org_meeting: Calendar,
   };
+  const Icon = icons[type] ?? Bell;
   return (
-    <span className="shrink-0 text-base mt-0.5" aria-hidden>
-      {icons[type] ?? "🔔"}
+    <span className="shrink-0 mt-0.5 text-gray-400" aria-hidden>
+      <Icon className="w-4 h-4" strokeWidth={2.25} />
     </span>
   );
 }

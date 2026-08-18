@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Clock, Lock } from "lucide-react";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
@@ -159,8 +160,9 @@ export default async function OrgProfilePage({
         <Link href="/orgs" className="text-sm text-gray-500 hover:text-brand">← Orgs</Link>
 
         {org.status === "pending" && (
-          <div className="mt-3 px-3 py-2 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800">
-            ⏳ This org is pending admin approval.
+          <div className="mt-3 px-3 py-2 bg-yellow-50 border border-yellow-200 rounded-lg text-sm text-yellow-800 flex items-center gap-1.5">
+            <Clock className="w-4 h-4 shrink-0" strokeWidth={2.5} />
+            This org is pending admin approval.
           </div>
         )}
 
@@ -175,9 +177,9 @@ export default async function OrgProfilePage({
               />
             )}
             <div className="min-w-0">
-              <h1 className="text-3xl font-bold">{org.name}</h1>
+              <h1 className="font-display text-3xl font-extrabold tracking-tight text-gray-900">{org.name}</h1>
               {org.description && (
-                <p className="text-gray-700 mt-2 max-w-2xl">{org.description}</p>
+                <p className="text-gray-600 mt-2 max-w-2xl leading-relaxed">{org.description}</p>
               )}
               <p className="text-sm text-gray-500 mt-2">
                 <strong>Members:</strong> {memberCount}
@@ -220,7 +222,10 @@ export default async function OrgProfilePage({
                       </div>
                     )}
                     {showLockedHint && (
-                      <p className="text-xs text-gray-400 mt-1">🔒 Join to see community chat links</p>
+                      <p className="text-xs text-gray-400 mt-1 flex items-center gap-1">
+                        <Lock className="w-3 h-3" strokeWidth={2.5} />
+                        Join to see community chat links
+                      </p>
                     )}
                   </>
                 );
@@ -233,7 +238,7 @@ export default async function OrgProfilePage({
             {canManage && (
               <AuthGatedLink
                 href={`/orgs/${org.slug}/meetings/new`}
-                className="text-sm px-3 py-1.5 border border-gray-300 rounded-lg text-center hover:bg-gray-50"
+                className="up-btn-secondary text-center"
               >
                 + New meeting
               </AuthGatedLink>
@@ -266,34 +271,34 @@ export default async function OrgProfilePage({
 
       <div className="flex flex-wrap gap-2">
         <Link href={`/orgs/${org.slug}/gallery`}
-          className="px-4 py-2 rounded-lg border border-gray-200 bg-white hover:bg-brand hover:text-white hover:border-brand text-sm font-medium transition-colors">
+          className="up-btn-invert">
           Gallery
         </Link>
         {canManage && (
           <Link href={`/orgs/${org.slug}/booth`}
-            className="px-4 py-2 rounded-lg border border-gray-200 bg-white hover:bg-brand hover:text-white hover:border-brand text-sm font-medium transition-colors">
-            🎪 Edit Booth
+            className="up-btn-invert">
+            Edit Booth
           </Link>
         )}
         <Link href={`/orgs/${org.slug}/surveys`}
-          className="px-4 py-2 rounded-lg border border-gray-200 bg-white hover:bg-brand hover:text-white hover:border-brand text-sm font-medium transition-colors">
+          className="up-btn-invert">
           Surveys
         </Link>
         {isMember && (
           <>
             <Link href={`/orgs/${org.slug}/checklist`}
-              className="px-4 py-2 rounded-lg border border-gray-200 bg-white hover:bg-brand hover:text-white hover:border-brand text-sm font-medium transition-colors">
+              className="up-btn-invert">
               New Member Checklist
             </Link>
             <Link href={`/orgs/${org.slug}/awards`}
-              className="px-4 py-2 rounded-lg border border-gray-200 bg-white hover:bg-brand hover:text-white hover:border-brand text-sm font-medium transition-colors">
+              className="up-btn-invert">
               Awards
             </Link>
           </>
         )}
         <a href="https://stuactonline.tamu.edu/online/forms/incident_reporting/index"
           target="_blank" rel="noopener noreferrer"
-          className="px-4 py-2 rounded-lg border border-gray-200 bg-white hover:bg-brand hover:text-white hover:border-brand text-sm font-medium transition-colors">
+          className="up-btn-invert">
           Anonymous Report
         </a>
       </div>
@@ -319,23 +324,23 @@ export default async function OrgProfilePage({
       )}
 
       <section>
-        <h2 className="text-xl font-semibold mb-3">Upcoming meetings</h2>
+        <h2 className="font-display text-xl font-bold text-gray-900 mb-3">Upcoming meetings</h2>
         {!meetings || meetings.length === 0 ? (
-          <div className="border border-dashed border-gray-300 rounded-lg p-6 text-center text-gray-600 text-sm">
+          <div className="border border-dashed border-gray-300 rounded-2xl p-6 text-center text-gray-500 text-sm">
             No meetings scheduled.{canManage && " Officers or STAFF can add one."}
           </div>
         ) : (
-          <ul className="space-y-2">
+          <ul className="space-y-2.5">
             {meetings.map((m) => (
               <li key={m.id}>
                 <Link
                   href={`/orgs/${org.slug}/meetings/${m.id}`}
-                  className="block border border-gray-200 rounded-lg p-4 hover:border-brand transition"
+                  className="up-card-hover block p-4"
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="font-medium">{m.title}</h3>
-                      <p className="text-sm text-gray-600">
+                      <h3 className="font-semibold text-gray-900">{m.title}</h3>
+                      <p className="text-sm text-gray-500">
                         {new Date(m.starts_at).toLocaleString()}
                         {m.location && ` · ${m.location}`}
                       </p>

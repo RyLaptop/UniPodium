@@ -1,9 +1,29 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Bricolage_Grotesque, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import { cookies } from "next/headers";
+import { UniSync } from "./_uni-sync";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const body = Hanken_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://unipodium.com";
 
@@ -27,8 +47,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const uni = jar.get("uni")?.value ?? "default";
 
   return (
-    <html lang="en" className={inter.variable} data-uni={uni}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`} data-uni={uni}>
       <body>
+        <UniSync />
         {children}
         <script
           type="application/ld+json"

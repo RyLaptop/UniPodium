@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Megaphone, Sparkles } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { BulletinCarousel } from "./_bulletin-carousel";
@@ -54,22 +55,28 @@ export default async function DashboardPage() {
   }));
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <section>
-        <h1 className="text-3xl font-bold">{user ? "Welcome back." : `Welcome to UniPodium · ${uniInfo.shortName}.`}</h1>
-        <p className="text-gray-600 mt-1">
+        <h1 className="font-display text-3xl font-extrabold tracking-tight text-gray-900">
+          {user ? "Welcome back." : `Welcome to UniPodium · ${uniInfo.shortName}.`}
+        </h1>
+        <p className="text-gray-500 mt-1.5">
           {user ? `Signed in as ${user.email}.` : "Browse orgs, find meetings, and request speaking slots."}
         </p>
       </section>
 
       {featuredOrg && (
         <section>
-          <p className="text-xs font-semibold uppercase tracking-wide text-brand mb-2">⭐ Featured org this week</p>
+          <p className="up-eyebrow mb-2.5 flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} />
+            Featured org this week
+          </p>
           <Link
             href={`/orgs/${(featuredOrg as unknown as { slug: string }).slug}`}
-            className="block border-2 border-brand/30 rounded-xl p-4 hover:border-brand hover:shadow transition"
+            className="up-card-hover block p-4"
+            style={{ borderColor: "rgb(var(--color-brand) / 0.3)" }}
           >
-            <div className="flex items-start gap-3">
+            <div className="flex items-start gap-3.5">
               {(featuredOrg as unknown as { logo_url?: string | null }).logo_url && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -79,9 +86,9 @@ export default async function DashboardPage() {
                 />
               )}
               <div>
-                <h3 className="font-bold text-lg">{(featuredOrg as unknown as { name: string }).name}</h3>
+                <h3 className="font-display font-bold text-lg text-gray-900">{(featuredOrg as unknown as { name: string }).name}</h3>
                 {(featuredOrg as unknown as { description?: string | null }).description && (
-                  <p className="text-sm text-gray-600 mt-0.5 line-clamp-2">
+                  <p className="text-sm text-gray-500 mt-0.5 line-clamp-2">
                     {(featuredOrg as unknown as { description: string }).description}
                   </p>
                 )}
@@ -93,7 +100,10 @@ export default async function DashboardPage() {
 
       {carouselPosts.length > 0 && (
         <section>
-          <h2 className="text-base font-semibold text-gray-700 mb-2">📢 Upcoming bulletin events</h2>
+          <h2 className="text-sm font-bold text-gray-800 mb-2.5 flex items-center gap-1.5">
+            <Megaphone className="w-4 h-4 text-gray-400" strokeWidth={2.5} />
+            Upcoming bulletin events
+          </h2>
           <BulletinCarousel posts={carouselPosts} uniLabel={uniInfo.label} />
         </section>
       )}
@@ -102,17 +112,18 @@ export default async function DashboardPage() {
 
       <section>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Your orgs</h2>
+          <h2 className="font-display text-xl font-bold text-gray-900">Your orgs</h2>
           <Link
             href="/orgs/new"
-            className="text-sm text-brand hover:underline"
+            className="text-sm font-semibold hover:underline"
+            style={{ color: "rgb(var(--color-brand))" }}
           >
             + Create org
           </Link>
         </div>
 
         {!user ? (
-          <div className="border border-dashed border-gray-300 rounded-lg p-8 text-center space-y-3">
+          <div className="border border-dashed border-gray-300 rounded-2xl p-8 text-center space-y-3">
             <p className="text-gray-600">Sign in to see your orgs and track your requests.</p>
             <div className="flex gap-3 justify-center text-sm">
               <Link href="/login" className="text-brand hover:underline">Sign in</Link>
@@ -121,7 +132,7 @@ export default async function DashboardPage() {
             </div>
           </div>
         ) : orgCount === 0 ? (
-          <div className="border border-dashed border-gray-300 rounded-lg p-8 text-center space-y-2">
+          <div className="border border-dashed border-gray-300 rounded-2xl p-8 text-center space-y-2">
             <p className="text-gray-600">You&apos;re not in any orgs yet.</p>
             <div className="flex gap-3 justify-center text-sm">
               <Link href="/orgs" className="text-brand hover:underline">
@@ -144,22 +155,15 @@ export default async function DashboardPage() {
               };
               return (
                 <li key={org.id}>
-                  <Link
-                    href={`/orgs/${org.slug}`}
-                    className="block border border-gray-200 rounded-lg p-4 hover:border-brand hover:shadow transition"
-                  >
-                    <div className="flex items-center justify-between">
-                      <h3 className="font-semibold">{org.name}</h3>
-                      <span className={`text-xs px-2 py-0.5 rounded font-medium ${
-                        m.role === "director"
-                          ? "bg-brand/10 text-brand-dark"
-                          : "bg-gray-100 text-gray-600"
-                      }`}>
+                  <Link href={`/orgs/${org.slug}`} className="up-card-hover block p-4">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="font-display font-bold text-gray-900">{org.name}</h3>
+                      <span className={m.role === "director" ? "up-badge-brand shrink-0" : "up-badge bg-gray-100 text-gray-600 shrink-0"}>
                         {m.role === "director" ? "Director" : m.role === "officer" ? "Staff" : "Member"}
                       </span>
                     </div>
                     {org.description && (
-                      <p className="text-sm text-gray-600 mt-1 line-clamp-2">
+                      <p className="text-sm text-gray-500 mt-1 line-clamp-2">
                         {org.description}
                       </p>
                     )}
@@ -172,29 +176,20 @@ export default async function DashboardPage() {
       </section>
 
       <section className="grid sm:grid-cols-3 gap-4">
-        <Link
-          href="/orgs"
-          className="border border-gray-200 rounded-lg p-4 hover:border-brand hover:shadow transition"
-        >
-          <h3 className="font-semibold">Browse orgs</h3>
+        <Link href="/orgs" className="up-card-hover p-4">
+          <h3 className="font-display font-bold text-gray-900">Browse orgs</h3>
           <p className="text-sm text-gray-500 mt-1">
             Find meetings to speak at
           </p>
         </Link>
-        <Link
-          href="/requests"
-          className="border border-gray-200 rounded-lg p-4 hover:border-brand hover:shadow transition"
-        >
-          <h3 className="font-semibold">Requests</h3>
+        <Link href="/requests" className="up-card-hover p-4">
+          <h3 className="font-display font-bold text-gray-900">Requests</h3>
           <p className="text-sm text-gray-500 mt-1">
             Track your requests and review incoming
           </p>
         </Link>
-        <Link
-          href="/map"
-          className="border border-gray-200 rounded-lg p-4 hover:border-brand hover:shadow transition"
-        >
-          <h3 className="font-semibold">Campus map</h3>
+        <Link href="/map" className="up-card-hover p-4">
+          <h3 className="font-display font-bold text-gray-900">Campus map</h3>
           <p className="text-sm text-gray-500 mt-1">Meetings near you</p>
         </Link>
       </section>

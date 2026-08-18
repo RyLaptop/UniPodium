@@ -75,10 +75,15 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <AuthGateProvider isAuthed={!!user}>
       <div className="min-h-screen flex flex-col">
-        <header className="border-b border-gray-100 bg-white sticky top-0 z-40">
-          <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between overflow-hidden">
-            <Link href="/dashboard" className="flex items-center gap-2 shrink-0">
-              <svg width="26" height="26" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style={{ color: "rgb(var(--color-brand))" }}>
+        <header className="relative bg-white/85 backdrop-blur-md sticky top-0 z-40">
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 h-px"
+            style={{ background: "linear-gradient(90deg, transparent, rgb(var(--color-brand) / 0.4), transparent)" }}
+          />
+          <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between overflow-hidden">
+            <Link href="/dashboard" className="flex items-center gap-2.5 shrink-0 group">
+              <svg width="28" height="28" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style={{ color: "rgb(var(--color-brand))" }} className="transition-transform duration-200 group-hover:-rotate-6">
                 <circle cx="40" cy="10" r="4.5" fill="currentColor"/>
                 <line x1="40" y1="14.5" x2="40" y2="22" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"/>
                 <path d="M14 22 L66 22 L60 36 L20 36 Z" fill="#0F172A"/>
@@ -87,10 +92,13 @@ export default async function AppLayout({ children }: { children: React.ReactNod
                 <path d="M22 62 L58 62 L60 70 L20 70 Z" fill="#0F172A"/>
               </svg>
               <div className="flex flex-col leading-none">
-                <span className="font-bold text-[17px]" style={{ letterSpacing: "-0.025em" }}>
+                <span className="font-display font-bold text-[18px]" style={{ letterSpacing: "-0.025em" }}>
                   <span className="text-slate-900">Uni</span><span className="text-brand">Podium</span>
                 </span>
-                <span className="text-[10px] text-gray-400 font-normal">{uniInfo.label}</span>
+                <span className="text-[10px] text-gray-400 font-medium font-mono flex items-center gap-1.5 mt-px">
+                  <span className="hud-dot" style={{ width: 4, height: 4 }} />
+                  {uniInfo.label}
+                </span>
               </div>
             </Link>
 
@@ -120,26 +128,17 @@ export default async function AppLayout({ children }: { children: React.ReactNod
                     <span className="hidden lg:inline">{displayName}</span>
                   </Link>
                   <form action={signOut} className="hidden md:block">
-                    <button
-                      type="submit"
-                      className="text-sm px-3 py-1.5 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-brand transition"
-                    >
+                    <button type="submit" className="up-btn-secondary !px-3 !py-1.5 text-xs">
                       Sign out
                     </button>
                   </form>
                 </>
               ) : (
                 <div className="hidden md:flex items-center gap-2">
-                  <Link
-                    href="/login"
-                    className="text-sm px-3 py-1.5 text-gray-600 hover:text-brand transition"
-                  >
+                  <Link href="/login" className="up-btn-ghost !px-3 !py-1.5 text-xs">
                     Sign in
                   </Link>
-                  <Link
-                    href="/login?mode=signup"
-                    className="text-sm px-3 py-1.5 bg-brand text-white rounded-lg hover:bg-brand-dark transition"
-                  >
+                  <Link href="/login?mode=signup" className="up-btn-primary !px-3 !py-1.5 text-xs">
                     Sign up
                   </Link>
                 </div>
@@ -161,11 +160,11 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         </main>
 
         <footer className="border-t border-gray-100 bg-white">
-          <div className="max-w-6xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400">
+          <div className="max-w-6xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-2 text-xs text-gray-400">
             <span>© 2026 UniPodium. All rights reserved.</span>
-            <div className="flex gap-4">
-              <Link href="/contact" className="hover:text-brand transition">Contact</Link>
-              <Link href="/help" className="hover:text-brand transition">Help &amp; Resources</Link>
+            <div className="flex gap-5">
+              <Link href="/contact" className="hover:text-brand transition-colors">Contact</Link>
+              <Link href="/help" className="hover:text-brand transition-colors">Help &amp; Resources</Link>
             </div>
           </div>
         </footer>

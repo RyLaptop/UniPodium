@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { signOut } from "@/app/auth/actions";
 import { useAuthGate } from "./_auth-gate";
@@ -21,8 +22,16 @@ export function MobileNav({
   uniLabel: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const close = () => setOpen(false);
   const { isAuthed, open: openAuthGate } = useAuthGate();
+
+  // The panel below is portaled to document.body — it must be, because it's
+  // triggered from inside the header, and the header's backdrop-blur (for
+  // the translucent-nav look) creates a CSS containing block for any
+  // `position: fixed` descendant. Left un-portaled, "fixed inset-0" silently
+  // resolves against the ~64px header box instead of the real viewport.
+  useEffect(() => setMounted(true), []);
 
   return (
     <>
@@ -36,7 +45,7 @@ export function MobileNav({
         <span className="w-5 h-0.5 bg-gray-700 block" />
       </button>
 
-      {open && (
+      {open && mounted && createPortal(
         <div className="fixed inset-0 z-50 bg-white flex flex-col md:hidden">
           <div className="flex items-center justify-between px-4 h-14 border-b border-gray-200">
             <div className="flex items-center gap-2">
@@ -115,7 +124,7 @@ export function MobileNav({
                 <form action={signOut}>
                   <button
                     type="submit"
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-brand transition text-sm"
+                    className="up-btn-secondary w-full"
                   >
                     Sign out
                   </button>
@@ -126,21 +135,22 @@ export function MobileNav({
                 <Link
                   href="/login"
                   onClick={close}
-                  className="block w-full px-4 py-2.5 bg-brand text-white rounded-lg text-sm text-center font-medium hover:bg-brand-dark transition"
+                  className="up-btn-primary w-full"
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/login?mode=signup"
                   onClick={close}
-                  className="block w-full px-4 py-2.5 border border-gray-300 rounded-lg text-sm text-center text-gray-700 hover:bg-gray-50 transition"
+                  className="up-btn-secondary w-full"
                 >
                   Create account
                 </Link>
               </>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

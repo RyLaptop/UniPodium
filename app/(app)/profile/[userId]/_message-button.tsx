@@ -37,7 +37,7 @@ export function MessageButton({
         href={`/messages/${existingThreadId}`}
         className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 hover:border-brand hover:text-brand transition"
       >
-        ✉️ Message
+        Message
       </Link>
     );
   }
@@ -48,7 +48,7 @@ export function MessageButton({
         disabled
         className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm text-gray-400 cursor-default"
       >
-        ✉️ Message pending
+        Message pending
       </button>
     );
   }
@@ -59,7 +59,7 @@ export function MessageButton({
         onClick={() => { if (!isAuthed) { openAuthModal(); return; } setOpen(true); }}
         className="px-3 py-1.5 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 hover:border-brand hover:text-brand transition"
       >
-        ✉️ Message
+        Message
       </button>
     );
   }

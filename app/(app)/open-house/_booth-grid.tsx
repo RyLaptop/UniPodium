@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { IdCard, Video, Link2, Calendar, Sparkles, Wrench } from "lucide-react";
 import { BOOTH_CATEGORIES, CATEGORY_COLOR, type BoothRow } from "@/lib/open-house";
 import { MatchQuiz } from "./_match-quiz";
 
@@ -63,7 +64,9 @@ export function BoothGrid({ booths, stamps, totalEntries }: Props) {
                     </span>
                   )}
                   <h2 className="text-lg font-bold mt-1">{previewBooth.org_name}</h2>
-                  <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full">🔧 Test booth</span>
+                  <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                    <Wrench className="w-3 h-3" strokeWidth={2.5} /> Test booth
+                  </span>
                 </div>
               </div>
               <button onClick={() => setPreviewBooth(null)} className="text-gray-400 hover:text-gray-600 text-xl shrink-0">✕</button>
@@ -74,9 +77,9 @@ export function BoothGrid({ booths, stamps, totalEntries }: Props) {
             )}
 
             <div className="flex gap-3 text-xs text-gray-400">
-              <span>📹 Video stamp</span>
-              <span>🔗 Link stamp</span>
-              <span>📅 Event stamp</span>
+              <span className="inline-flex items-center gap-1"><Video className="w-3.5 h-3.5" strokeWidth={2.25} /> Video stamp</span>
+              <span className="inline-flex items-center gap-1"><Link2 className="w-3.5 h-3.5" strokeWidth={2.25} /> Link stamp</span>
+              <span className="inline-flex items-center gap-1"><Calendar className="w-3.5 h-3.5" strokeWidth={2.25} /> Event stamp</span>
             </div>
 
             {(previewBooth.website_url || previewBooth.instagram_url || previewBooth.tiktok_url) && (
@@ -106,7 +109,9 @@ export function BoothGrid({ booths, stamps, totalEntries }: Props) {
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6 space-y-4 max-h-[80vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold">🪪 Your Passport</h2>
+                <h2 className="font-display text-lg font-bold flex items-center gap-1.5">
+                  <IdCard className="w-4.5 h-4.5" strokeWidth={2.25} /> Your Passport
+                </h2>
                 <p className="text-sm text-gray-500">
                   {totalEntries}/5 prize pool {totalEntries === 1 ? "entry" : "entries"} earned
                 </p>
@@ -134,8 +139,10 @@ export function BoothGrid({ booths, stamps, totalEntries }: Props) {
                           : booth.org_name.slice(0, 2).toUpperCase()}
                       </div>
                       <p className="text-xs text-center text-gray-600 leading-tight">{booth.org_name}</p>
-                      <p className="text-[10px] text-gray-400">
-                        {[s.video_watched && "📹", s.link_clicked && "🔗", s.event_added && "📅"].filter(Boolean).join(" ")}
+                      <p className="text-[10px] text-gray-400 flex items-center justify-center gap-1">
+                        {s.video_watched && <Video className="w-2.5 h-2.5" strokeWidth={2.5} />}
+                        {s.link_clicked && <Link2 className="w-2.5 h-2.5" strokeWidth={2.5} />}
+                        {s.event_added && <Calendar className="w-2.5 h-2.5" strokeWidth={2.5} />}
                       </p>
                     </div>
                   );
@@ -165,12 +172,12 @@ export function BoothGrid({ booths, stamps, totalEntries }: Props) {
             <button onClick={() => setQuizResults(null)} className="text-xs text-gray-500 hover:text-gray-700 underline">Clear match</button>
           )}
           <button onClick={() => setQuizOpen(true)}
-            className="px-4 py-2 bg-brand text-white rounded-full text-sm font-semibold hover:bg-brand-dark transition">
-            ✨ Match Me
+            className="px-4 py-2 bg-brand text-white rounded-full text-sm font-semibold hover:bg-brand-dark transition inline-flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5" strokeWidth={2.5} /> Match Me
           </button>
           <button onClick={() => setPassportOpen(true)}
-            className="relative px-4 py-2 border border-brand text-brand rounded-full text-sm font-semibold hover:bg-brand/5 transition">
-            🪪 Passport
+            className="relative px-4 py-2 border border-brand text-brand rounded-full text-sm font-semibold hover:bg-brand/5 transition inline-flex items-center gap-1.5">
+            <IdCard className="w-3.5 h-3.5" strokeWidth={2.5} /> Passport
             {totalEntries > 0 && (
               <span className="absolute -top-1 -right-1 bg-brand text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                 {totalEntries}
@@ -181,8 +188,9 @@ export function BoothGrid({ booths, stamps, totalEntries }: Props) {
       </div>
 
       {quizResults && (
-        <div className="bg-brand/5 border border-brand/20 rounded-xl px-4 py-2 text-sm text-brand">
-          ✨ Showing {quizResults.length} best {quizResults.length === 1 ? "match" : "matches"}.{" "}
+        <div className="bg-brand/5 border border-brand/20 rounded-xl px-4 py-2 text-sm text-brand flex items-center gap-1.5 flex-wrap">
+          <Sparkles className="w-3.5 h-3.5 shrink-0" strokeWidth={2.5} />
+          Showing {quizResults.length} best {quizResults.length === 1 ? "match" : "matches"}.{" "}
           <button onClick={() => setQuizResults(null)} className="underline">See all orgs</button>
         </div>
       )}

@@ -2,6 +2,7 @@
 
 import { useState, useTransition, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { Lock } from "lucide-react";
 import { updateOrg, uploadOrgLogo } from "../actions";
 import { ORG_TAGS, TAG_COLORS, tagLabel } from "../_tag-colors";
 
@@ -222,8 +223,9 @@ export function EditOrgForm({
             <span className="text-xs text-gray-500">Members only</span>
           </label>
         </div>
-        <p className="text-xs text-gray-400 mb-2">
-          {socialLinksLocked ? "🔒 Visible to active members only." : "Visible to everyone."}
+        <p className="text-xs text-gray-400 mb-2 flex items-center gap-1">
+          {socialLinksLocked && <Lock className="w-3 h-3" strokeWidth={2.5} />}
+          {socialLinksLocked ? "Visible to active members only." : "Visible to everyone."}
         </p>
         <div className="grid grid-cols-2 gap-3">
           <label className="block">
