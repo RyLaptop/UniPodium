@@ -26,6 +26,7 @@ export function UniSelector({ currentUni }: { currentUni: University | null }) {
     if (!selected) return;
     setLoading(true);
     document.cookie = `uni=${selected}; path=/; max-age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+    document.documentElement.setAttribute("data-uni", selected);
     router.push("/dashboard");
   };
 
@@ -39,7 +40,7 @@ export function UniSelector({ currentUni }: { currentUni: University | null }) {
         className="up-input text-center"
       />
 
-      <div className="grid grid-cols-2 gap-2.5 max-h-72 overflow-y-auto pr-1 -mr-1">
+      <div className="grid grid-cols-2 gap-2.5 max-h-72 overflow-y-auto p-1.5 -m-1.5">
         {filtered.map(([key, uni]) => {
           const isSelected = selected === key;
           return (
@@ -77,7 +78,11 @@ export function UniSelector({ currentUni }: { currentUni: University | null }) {
       <button
         type="submit"
         disabled={!selected || loading}
-        className="up-btn-primary w-full"
+        className="up-btn w-full text-white"
+        style={{
+          backgroundColor: selected ? UNIVERSITIES[selected].primary : "#3B82F6",
+          boxShadow: "var(--shadow-sm)",
+        }}
       >
         {loading ? "Loading…" : selected ? `Browse as ${UNIVERSITIES[selected].label} →` : "Select a university to continue"}
       </button>

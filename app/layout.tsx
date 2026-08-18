@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
 import { cookies } from "next/headers";
+import { UniSync } from "./_uni-sync";
 import "./globals.css";
 
 const display = Bricolage_Grotesque({
@@ -41,6 +42,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`} data-uni={uni}>
       <body>
+        <UniSync />
         {children}
         <script
           type="application/ld+json"

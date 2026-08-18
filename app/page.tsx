@@ -30,7 +30,7 @@ export default async function HomePage() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[640px] h-[640px] rounded-full opacity-[0.14] blur-3xl"
-        style={{ backgroundColor: "rgb(var(--color-brand))" }}
+        style={{ backgroundColor: "#3B82F6" }}
       />
 
       <div className="relative w-full max-w-sm">
@@ -57,9 +57,9 @@ export default async function HomePage() {
               <path d="M22 62 L58 62 L60 70 L20 70 Z" fill="#0F172A"/>
             </svg>
             <div>
-              <p className="up-eyebrow mb-2">Cross-campus speaker platform</p>
+              <p className="up-eyebrow mb-2" style={{ color: "#3B82F6" }}>Cross-campus speaker platform</p>
               <h1 className="font-display text-5xl font-extrabold text-gray-900" style={{ letterSpacing: "-0.03em" }}>
-                Uni<span style={{ color: "rgb(var(--color-brand))" }}>Podium</span>
+                Uni<span style={{ color: "#3B82F6" }}>Podium</span>
               </h1>
               <p className="text-gray-500 text-sm mt-2.5 max-w-xs mx-auto leading-relaxed">
                 Every org, every meeting, one place to find your slot.
