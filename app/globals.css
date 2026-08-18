@@ -135,8 +135,8 @@ body {
    without needing overflow-visible tricks on the card itself. */
 .hud-corner {
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: 9px;
+  height: 9px;
   border: 2px solid white;
   opacity: 0;
   transform: scale(0.6);
@@ -147,10 +147,10 @@ body {
   opacity: 1;
   transform: scale(1);
 }
-.hud-corner-tl { top: -6px; left: -6px; border-right: none; border-bottom: none; border-radius: 4px 0 0 0; }
-.hud-corner-tr { top: -6px; right: -6px; border-left: none; border-bottom: none; border-radius: 0 4px 0 0; }
-.hud-corner-bl { bottom: -6px; left: -6px; border-right: none; border-top: none; border-radius: 0 0 0 4px; }
-.hud-corner-br { bottom: -6px; right: -6px; border-left: none; border-top: none; border-radius: 0 0 4px 0; }
+.hud-corner-tl { top: -4px; left: -4px; border-right: none; border-bottom: none; border-radius: 3px 0 0 0; }
+.hud-corner-tr { top: -4px; right: -4px; border-left: none; border-bottom: none; border-radius: 0 3px 0 0; }
+.hud-corner-bl { bottom: -4px; left: -4px; border-right: none; border-top: none; border-radius: 0 0 0 3px; }
+.hud-corner-br { bottom: -4px; right: -4px; border-left: none; border-top: none; border-radius: 0 0 3px 0; }
 
 @layer components {
   /* Shared primitives — every surface below reads --color-brand, so they
