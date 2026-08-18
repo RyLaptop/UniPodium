@@ -4,6 +4,37 @@
 
 @import "leaflet/dist/leaflet.css";
 
+/* ── Site-wide reskin via attribute selectors ──
+   ~140 files still use hand-rolled Tailwind strings from before this design
+   system existed (no shared Card/Button components to retrofit centrally).
+   Rather than hand-edit every file, these two rules key off classes that
+   are already applied consistently by convention:
+     - every heading tag gets the display face directly (no per-file edit)
+     - every "border-gray-200 + rounded-*" container (the site's card
+       convention) gets real elevation + hover lift
+   Verified against the codebase: border-gray-200 without a rounded-* class
+   is always a plain divider (border-t/border-b), never a card, so this
+   can't mis-fire there. border-gray-300 (secondary buttons, dashed empty
+   states, form inputs) is a different shade and untouched by design. */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display, var(--font-inter)), var(--font-inter), system-ui, sans-serif;
+}
+
+[class*="border-gray-200"][class*="rounded"] {
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 200ms ease, transform 200ms ease;
+}
+
+a[class*="border-gray-200"][class*="rounded"]:hover,
+button[class*="border-gray-200"][class*="rounded"]:hover {
+  box-shadow: var(--shadow-md);
+}
+
+[class*="bg-brand"]:not([class*="bg-brand/"]):active {
+  transform: scale(0.97);
+}
+
 /* ── Default (landing page / no uni selected) ── */
 :root {
   --color-brand:       59 130 246;    /* #3B82F6 blue */
