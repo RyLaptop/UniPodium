@@ -79,6 +79,13 @@ export function UniSelector({ currentUni }: { currentUni: University | null }) {
         )}
       </div>
 
+      <p className="text-xs text-gray-400">
+        Don&apos;t see your university?{" "}
+        <Link href="/ambassador" className="text-brand hover:underline">
+          Click here to apply to bring UniPodium to your university as a Campus Ambassador
+        </Link>
+      </p>
+
       <button
         type="submit"
         disabled={!selected || loading}
