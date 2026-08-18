@@ -21,6 +21,28 @@ h1, h2, h3, h4 {
   font-family: var(--font-display, var(--font-inter)), var(--font-inter), system-ui, sans-serif;
 }
 
+/* Tracking is size-specific, not one fixed value: large display text reads
+   too loose at default tracking and wants to tighten; small text needs to
+   stay near default for legibility. Only the biggest headings get pulled in. */
+h1[class*="text-3xl"], h1[class*="text-2xl"],
+h2[class*="text-3xl"], h2[class*="text-2xl"] {
+  letter-spacing: -0.02em;
+}
+h1[class*="text-xl"]:not([class*="text-2xl"]):not([class*="text-3xl"]),
+h2[class*="text-xl"]:not([class*="text-2xl"]):not([class*="text-3xl"]),
+h3[class*="text-xl"] {
+  letter-spacing: -0.01em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 [class*="border-gray-200"][class*="rounded"] {
   box-shadow: var(--shadow-sm);
   transition: box-shadow 200ms ease, transform 200ms ease;
