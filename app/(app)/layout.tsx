@@ -75,7 +75,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <AuthGateProvider isAuthed={!!user}>
       <div className="min-h-screen flex flex-col">
-        <header className="border-b border-gray-100 bg-white/85 backdrop-blur-md sticky top-0 z-40">
+        <header className="relative bg-white/85 backdrop-blur-md sticky top-0 z-40">
+          <div
+            aria-hidden="true"
+            className="absolute inset-x-0 bottom-0 h-px"
+            style={{ background: "linear-gradient(90deg, transparent, rgb(var(--color-brand) / 0.4), transparent)" }}
+          />
           <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between overflow-hidden">
             <Link href="/dashboard" className="flex items-center gap-2.5 shrink-0 group">
               <svg width="28" height="28" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" style={{ color: "rgb(var(--color-brand))" }} className="transition-transform duration-200 group-hover:-rotate-6">
@@ -90,7 +95,10 @@ export default async function AppLayout({ children }: { children: React.ReactNod
                 <span className="font-display font-bold text-[18px]" style={{ letterSpacing: "-0.025em" }}>
                   <span className="text-slate-900">Uni</span><span className="text-brand">Podium</span>
                 </span>
-                <span className="text-[10px] text-gray-400 font-medium">{uniInfo.label}</span>
+                <span className="text-[10px] text-gray-400 font-medium font-mono flex items-center gap-1.5 mt-px">
+                  <span className="hud-dot" style={{ width: 4, height: 4 }} />
+                  {uniInfo.label}
+                </span>
               </div>
             </Link>
 

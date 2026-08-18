@@ -71,7 +71,86 @@ button[class*="border-gray-200"][class*="rounded"]:hover {
   --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 1px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 6px 16px -8px rgba(15, 23, 42, 0.16), 0 2px 6px rgba(15, 23, 42, 0.06);
   --shadow-lg: 0 20px 40px -16px rgba(15, 23, 42, 0.22), 0 6px 12px rgba(15, 23, 42, 0.08);
+
+  /* "Light glass HUD" motion + glow primitives — snappy expo-out easing and
+     brand-tinted glow shadows, layered on top of the neutral shadows above
+     rather than replacing them, so every campus theme picks up matching
+     glow color automatically through --color-brand. */
+  --ease-hud: cubic-bezier(0.16, 1, 0.3, 1);
+  --glow-sm: 0 0 0 1px rgb(var(--color-brand) / 0.16);
+  --glow-md: 0 0 20px -4px rgb(var(--color-brand) / 0.5);
 }
+
+/* Faint dot-grid texture, used site-wide as a quiet "instrumented surface"
+   backdrop (very low opacity so it never competes with content) and at
+   full strength inside .hud-grid-strong for hero moments. */
+body {
+  background-image: radial-gradient(circle at 1px 1px, rgb(15 23 42 / 0.035) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+
+.hud-grid-strong {
+  background-image: radial-gradient(circle at 1px 1px, rgb(15 23 42 / 0.07) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.hud-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(var(--color-brand));
+  flex-shrink: 0;
+  animation: hud-pulse 2.2s var(--ease-hud) infinite;
+}
+
+@keyframes hud-pulse {
+  0% { box-shadow: 0 0 0 0 rgb(var(--color-brand) / 0.45); }
+  70% { box-shadow: 0 0 0 7px rgb(var(--color-brand) / 0); }
+  100% { box-shadow: 0 0 0 0 rgb(var(--color-brand) / 0); }
+}
+
+@keyframes hud-scan {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.up-btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgb(255 255 255 / 0.45) 50%, transparent 60%);
+  transform: translateX(-130%);
+  transition: transform 650ms var(--ease-hud);
+  pointer-events: none;
+}
+.up-btn-primary:hover::after {
+  transform: translateX(130%);
+}
+
+/* Corner-bracket "reticle" — the selection signature for university cards,
+   four independent ticks so they can sit outside the card's own edge
+   without needing overflow-visible tricks on the card itself. */
+.hud-corner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid white;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 220ms var(--ease-hud), transform 220ms var(--ease-hud);
+  pointer-events: none;
+}
+.hud-corner.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+.hud-corner-tl { top: -6px; left: -6px; border-right: none; border-bottom: none; border-radius: 4px 0 0 0; }
+.hud-corner-tr { top: -6px; right: -6px; border-left: none; border-bottom: none; border-radius: 0 4px 0 0; }
+.hud-corner-bl { bottom: -6px; left: -6px; border-right: none; border-top: none; border-radius: 0 0 0 4px; }
+.hud-corner-br { bottom: -6px; right: -6px; border-left: none; border-top: none; border-radius: 0 0 4px 0; }
 
 @layer components {
   /* Shared primitives — every surface below reads --color-brand, so they
@@ -80,27 +159,32 @@ button[class*="border-gray-200"][class*="rounded"]:hover {
      adopt file-by-file rather than a single sweeping refactor. */
 
   .up-card {
-    @apply bg-white border border-gray-100 rounded-2xl transition-shadow duration-200;
+    @apply relative bg-white border border-gray-100 rounded-2xl transition-all duration-300;
     box-shadow: var(--shadow-sm);
+    transition-timing-function: var(--ease-hud);
   }
   .up-card-hover {
     @apply up-card hover:shadow-none;
   }
   .up-card-hover:hover {
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-md), var(--glow-md);
+    transform: translateY(-2px);
+    border-color: rgb(var(--color-brand) / 0.25);
   }
 
   .up-btn {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-xl text-sm font-semibold px-4 py-2.5 transition-all duration-150 disabled:opacity-40 disabled:pointer-events-none active:scale-[0.97];
+    @apply relative inline-flex items-center justify-center gap-1.5 rounded-xl text-sm font-semibold px-4 py-2.5 disabled:opacity-40 disabled:pointer-events-none active:scale-[0.97] overflow-hidden;
+    transition: all 200ms var(--ease-hud);
   }
   .up-btn-primary {
     @apply up-btn text-white;
-    background-color: rgb(var(--color-brand));
-    box-shadow: var(--shadow-sm);
+    background: linear-gradient(135deg, rgb(var(--color-brand)), rgb(var(--color-brand-dark)));
+    box-shadow: var(--shadow-sm), var(--glow-sm);
   }
   .up-btn-primary:hover {
-    background-color: rgb(var(--color-brand-dark));
-    box-shadow: var(--shadow-md);
+    background: linear-gradient(135deg, rgb(var(--color-brand-light)), rgb(var(--color-brand)));
+    box-shadow: var(--shadow-md), var(--glow-md);
+    transform: translateY(-1px);
   }
   .up-btn-secondary {
     @apply up-btn bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300;
@@ -119,11 +203,14 @@ button[class*="border-gray-200"][class*="rounded"]:hover {
 
   .up-badge {
     @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    font-family: var(--font-mono), monospace;
+    letter-spacing: 0.02em;
   }
   .up-badge-brand {
     @apply up-badge;
     color: rgb(var(--color-brand-dark));
     background-color: rgb(var(--color-brand) / 0.12);
+    box-shadow: inset 0 0 0 1px rgb(var(--color-brand) / 0.18);
   }
 
   .up-input {
@@ -136,9 +223,10 @@ button[class*="border-gray-200"][class*="rounded"]:hover {
   }
 
   .up-eyebrow {
-    @apply text-xs font-bold uppercase tracking-widest;
+    @apply inline-flex items-center gap-1.5 text-xs font-bold uppercase;
+    font-family: var(--font-mono), monospace;
     color: rgb(var(--color-brand));
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
   }
 }
 
@@ -379,7 +467,7 @@ button[class*="border-gray-200"][class*="rounded"]:hover {
 html,
 body {
   height: 100%;
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
 }
 

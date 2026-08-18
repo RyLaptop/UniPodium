@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Hanken_Grotesk } from "next/font/google";
+import { Bricolage_Grotesque, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import { cookies } from "next/headers";
 import { UniSync } from "./_uni-sync";
 import "./globals.css";
@@ -15,6 +15,13 @@ const body = Hanken_Grotesk({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-body",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -40,7 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const uni = jar.get("uni")?.value ?? "default";
 
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`} data-uni={uni}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`} data-uni={uni}>
       <body>
         <UniSync />
         {children}

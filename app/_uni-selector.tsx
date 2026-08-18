@@ -52,11 +52,15 @@ export function UniSelector({ currentUni }: { currentUni: University | null }) {
                 backgroundColor: uni.primary,
                 color: uni.secondary,
                 boxShadow: isSelected
-                  ? `0 0 0 2px white, 0 0 0 4px ${uni.primary}`
+                  ? `0 0 0 2px white, 0 6px 18px -4px ${uni.primary}99, 0 0 0 5px ${uni.primary}33`
                   : "0 1px 2px rgba(15,23,42,0.08)",
               }}
-              className="relative px-3.5 py-3.5 rounded-xl text-left transition-all duration-150 hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0 active:scale-[0.98]"
+              className="relative px-3.5 py-3.5 rounded-xl text-left transition-all duration-200 hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0 active:scale-[0.98]"
             >
+              <span className={`hud-corner hud-corner-tl ${isSelected ? "is-active" : ""}`} />
+              <span className={`hud-corner hud-corner-tr ${isSelected ? "is-active" : ""}`} />
+              <span className={`hud-corner hud-corner-bl ${isSelected ? "is-active" : ""}`} />
+              <span className={`hud-corner hud-corner-br ${isSelected ? "is-active" : ""}`} />
               <p className="font-display font-bold text-sm leading-tight">{uni.label}</p>
               <p className="text-xs opacity-75 leading-tight mt-0.5 truncate">{uni.shortName}</p>
               {isSelected && (
@@ -78,13 +82,25 @@ export function UniSelector({ currentUni }: { currentUni: University | null }) {
       <button
         type="submit"
         disabled={!selected || loading}
-        className="up-btn w-full text-white"
+        className="group up-btn w-full text-white transition-transform duration-200 hover:-translate-y-0.5"
         style={{
           backgroundColor: selected ? UNIVERSITIES[selected].primary : "#3B82F6",
-          boxShadow: "var(--shadow-sm)",
+          boxShadow: selected
+            ? `var(--shadow-sm), 0 10px 24px -8px ${UNIVERSITIES[selected].primary}80`
+            : "var(--shadow-sm)",
         }}
       >
-        {loading ? "Loading…" : selected ? `Browse as ${UNIVERSITIES[selected].label} →` : "Select a university to continue"}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"
+          style={{
+            transitionTimingFunction: "var(--ease-hud)",
+            background: "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.45) 50%, transparent 60%)",
+          }}
+        />
+        <span className="relative">
+          {loading ? "Loading…" : selected ? `Browse as ${UNIVERSITIES[selected].label} →` : "Select a university to continue"}
+        </span>
       </button>
 
       <div className="flex gap-3 pt-1">
