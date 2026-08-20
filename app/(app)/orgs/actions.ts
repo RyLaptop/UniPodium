@@ -8,6 +8,7 @@ import { notify } from "@/lib/notifications";
 import { sendEmail } from "@/lib/email/send";
 import { orgCreationDecisionEmail } from "@/lib/email/templates";
 import { getUniversity } from "@/lib/university";
+import { isUuid } from "@/lib/utils";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 async function isDirectorOrAdmin(supabase: SupabaseClient, orgId: string, userId: string): Promise<boolean> {
@@ -460,6 +461,7 @@ export async function addAffiliation(orgId: string, orgSlug: string, affiliateOr
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { ok: false as const, error: "Not signed in" };
+  if (!isUuid(orgId) || !isUuid(affiliateOrgId)) return { ok: false as const, error: "Invalid org." };
 
   if (!await isDirectorOrAdmin(supabase, orgId, user.id)) return { ok: false as const, error: "Only STAFF can manage affiliations." };
 

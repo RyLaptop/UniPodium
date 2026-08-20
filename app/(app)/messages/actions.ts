@@ -6,11 +6,13 @@ import { createServiceClient } from "@/lib/supabase/service";
 import { notify } from "@/lib/notifications";
 import { sendEmail } from "@/lib/email/send";
 import { dmRequestEmail } from "@/lib/email/templates";
+import { isUuid } from "@/lib/utils";
 
 export async function requestDm(targetUserId: string, initialMessage: string) {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { ok: false as const, error: "Not signed in" };
+  if (!isUuid(targetUserId)) return { ok: false as const, error: "Invalid user." };
   if (user.id === targetUserId) return { ok: false as const, error: "Can't message yourself." };
   if (!initialMessage.trim()) return { ok: false as const, error: "Message required." };
 

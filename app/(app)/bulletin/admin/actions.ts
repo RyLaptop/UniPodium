@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { getResend, FROM_EMAIL } from "@/lib/email/resend";
+import { isUuid } from "@/lib/utils";
 
 type Result = { ok: true } | { ok: false; error: string };
 
@@ -43,6 +44,7 @@ export async function adminUpdateUser(
 }
 
 async function deleteAuthAndProfile(targetUserId: string): Promise<Result> {
+  if (!isUuid(targetUserId)) return { ok: false, error: "Invalid user." };
   const svc = createServiceClient();
 
   // Null out nullable back-references first

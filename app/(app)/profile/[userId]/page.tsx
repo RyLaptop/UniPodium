@@ -9,6 +9,7 @@ import { MessageButton } from "./_message-button";
 import { DeleteAccountButton } from "./_delete-account";
 import { ChangeUniversitySection } from "./_change-university";
 import type { University } from "@/lib/university";
+import { isUuid } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +19,7 @@ export default async function ProfilePage({
   params: Promise<{ userId: string }>;
 }) {
   const { userId } = await params;
+  if (!isUuid(userId)) notFound();
   const jar = await cookies();
   const currentUni = (jar.get("uni")?.value ?? "tamu") as University;
   const windowStartStr = jar.get("uni_switch_window_start")?.value;
