@@ -1,12 +1,13 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { isEmailAllowed } from "@/lib/auth/allowed-domains";
 import { UNIVERSITIES } from "@/lib/university-data";
 import type { University } from "@/lib/university";
+import { rateLimit, clientIp } from "@/lib/rate-limit";
 
 const VALID_UNI_KEYS = Object.keys(UNIVERSITIES) as University[];
 
@@ -26,6 +27,10 @@ export async function signInWithPassword(
   }
   if (!isEmailAllowed(email)) {
     return { ok: false, error: "That email domain isn't allowed on this platform." };
+  }
+  const ip = clientIp(await headers());
+  if (!rateLimit(`signin:${ip}`, 10, 900_000)) {
+    return { ok: false, error: "Too many attempts, please wait and try again." };
   }
 
   const supabase = await createClient();
@@ -64,6 +69,10 @@ export async function signUpWithPassword(
   const confirmPassword = String(formData.get("confirm_password") ?? "");
   if (password !== confirmPassword) {
     return { ok: false, error: "Passwords do not match." };
+  }
+  const ip = clientIp(await headers());
+  if (!rateLimit(`signup:${ip}`, 5, 3_600_000)) {
+    return { ok: false, error: "Too many attempts, please wait and try again." };
   }
 
   const supabase = await createClient();
