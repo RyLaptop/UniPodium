@@ -1,5 +1,5 @@
 -- ============================================================
--- YellPass initial schema
+-- UniPodium initial schema
 -- Run with: supabase db push  (after supabase link)
 -- Or paste into Supabase SQL editor.
 -- ============================================================

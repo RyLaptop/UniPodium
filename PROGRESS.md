@@ -1,4 +1,4 @@
-# YellPass — Build Progress
+# UniPodium — Build Progress
 
 ## Phase status
 
@@ -46,7 +46,7 @@
 
 **Supabase dashboard config needed before this works:**
 1. Auth → Providers → Email → enable magic link (default is on)
-2. Auth → URL Configuration → Site URL: `http://localhost:3000` (add `https://yellpass.app` when you deploy)
+2. Auth → URL Configuration → Site URL: `http://localhost:3000` (add `https://unipodium.app` when you deploy)
 3. Auth → URL Configuration → Redirect URLs: add `http://localhost:3000/auth/callback`
 
 ### Phase 4 (org directory + profiles)
@@ -105,16 +105,16 @@ upgrade needed unless the pilot outgrows Resend's 100/day cap.
 **Setup needed before Phase 7 works:**
 1. Run migration `00003_site_admin_and_bulletin_review.sql`
 2. In Supabase SQL editor: `update public.users set is_site_admin = true where email = 'you@tamu.edu';`
-3. Get a Resend API key (resend.com, free) → `RESEND_API_KEY` in `.env.local`. Leave `RESEND_FROM_EMAIL` blank until you verify `yellpass.app` as a domain in Resend — it'll fall back to their shared sandbox sender.
+3. Get a Resend API key (resend.com, free) → `RESEND_API_KEY` in `.env.local`. Leave `RESEND_FROM_EMAIL` blank until you verify `unipodium.app` as a domain in Resend — it'll fall back to their shared sandbox sender.
 4. Generate a random string for `CRON_SECRET` in `.env.local` and on Vercel's env vars
 5. Deploy to Vercel, then set up 2 free monitors at cron-job.org (or similar) hitting, every 15–30 min:
-   - `https://yellpass.app/api/cron/reminders?secret=YOUR_CRON_SECRET`
-   - `https://yellpass.app/api/cron/no-shows?secret=YOUR_CRON_SECRET`
+   - `https://unipodium.app/api/cron/reminders?secret=YOUR_CRON_SECRET`
+   - `https://unipodium.app/api/cron/no-shows?secret=YOUR_CRON_SECRET`
 
 ## Resume instructions
 
 When you come back:
-1. Tell Claude: "resume YellPass Phase 8" (or whichever phase — no Phase 8 defined yet)
+1. Tell Claude: "resume UniPodium Phase 8" (or whichever phase — no Phase 8 defined yet)
 2. Claude will read this file and continue from the next unchecked box
 3. After each phase, this file is updated + a new zip is generated
 
@@ -125,6 +125,6 @@ When you come back:
 - [ ] `npm run dev` and confirm landing page loads
 
 ## Notes
-- Name: **YellPass** (pending TAMU trademark office response — pivot if flagged)
+- Name: **UniPodium** (pending TAMU trademark office response — pivot if flagged)
 - Stack matches Freats so you already know it
-- Domain: register `yellpass.app` or `yellpass.com` for ~$12 on Namecheap/Porkbun
+- Domain: register `unipodium.app` or `unipodium.com` for ~$12 on Namecheap/Porkbun

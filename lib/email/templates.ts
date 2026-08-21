@@ -1,4 +1,4 @@
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://agpodium.com";
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://unipodium.com";
 
 type EmailResult = { subject: string; html: string };
 
@@ -30,7 +30,7 @@ export function reminderEmail({
     "<strong>${meetingTitle}</strong>" ${label}.</p>
     <p><strong>When:</strong> ${when}<br/>
     <strong>Where:</strong> ${location ?? "TBD"}</p>
-    <p>— AgPodium</p>
+    <p>— UniPodium</p>
   `;
   return { subject, html };
 }
@@ -44,12 +44,12 @@ export function dmRequestEmail({
   preview: string;
   threadPath: string;
 }): EmailResult {
-  const subject = `${senderName} wants to chat on AgPodium`;
+  const subject = `${senderName} wants to chat on UniPodium`;
   const html = `
-    <p><strong>${senderName}</strong> sent you a message request on AgPodium.</p>
+    <p><strong>${senderName}</strong> sent you a message request on UniPodium.</p>
     <blockquote style="border-left:3px solid #e5e7eb;margin:12px 0;padding:8px 12px;color:#374151">${preview}</blockquote>
     <p>${link(threadPath, "View and respond →")}</p>
-    <p>— AgPodium</p>
+    <p>— UniPodium</p>
   `;
   return { subject, html };
 }
@@ -74,11 +74,11 @@ export function speakDecisionEmail({
     ? `<p>Hi ${recipientName},</p>
        <p>Great news — <strong>${orgName}</strong> approved your request to speak at "<strong>${meetingTitle}</strong>".</p>
        <p>${link(requestPath, "View your request →")}</p>
-       <p>— AgPodium</p>`
+       <p>— UniPodium</p>`
     : `<p>Hi ${recipientName},</p>
        <p><strong>${orgName}</strong> was unable to approve your speak request for "<strong>${meetingTitle}</strong>".</p>
        <p>${link(requestPath, "View your request →")}</p>
-       <p>— AgPodium</p>`;
+       <p>— UniPodium</p>`;
   return { subject, html };
 }
 
@@ -104,7 +104,7 @@ export function waitlistPromotedEmail({
     <p>A spot opened up — you've been moved off the waitlist and approved to speak at <strong>${orgName}</strong>'s meeting "<strong>${meetingTitle}</strong>".</p>
     <p><strong>When:</strong> ${when}<br/><strong>Where:</strong> ${location ?? "TBD"}</p>
     <p>${link(requestPath, "View your request →")}</p>
-    <p>— AgPodium</p>
+    <p>— UniPodium</p>
   `;
   return { subject, html };
 }
@@ -121,16 +121,16 @@ export function orgJoinDecisionEmail({
   orgPath: string;
 }): EmailResult {
   const subject = approved
-    ? `Welcome to ${orgName} on AgPodium!`
+    ? `Welcome to ${orgName} on UniPodium!`
     : `Your request to join ${orgName} was declined`;
   const html = approved
     ? `<p>Hi ${recipientName},</p>
        <p>Your request to join <strong>${orgName}</strong> has been approved — welcome aboard!</p>
        <p>${link(orgPath, "View org →")}</p>
-       <p>— AgPodium</p>`
+       <p>— UniPodium</p>`
     : `<p>Hi ${recipientName},</p>
        <p>Your request to join <strong>${orgName}</strong> was not approved at this time.</p>
-       <p>— AgPodium</p>`;
+       <p>— UniPodium</p>`;
   return { subject, html };
 }
 
@@ -146,16 +146,16 @@ export function orgRoleChangedEmail({
   orgPath: string;
 }): EmailResult {
   const subject = promoted
-    ? `You're now STAFF of ${orgName} on AgPodium`
-    : `You've been removed from ${orgName} on AgPodium`;
+    ? `You're now STAFF of ${orgName} on UniPodium`
+    : `You've been removed from ${orgName} on UniPodium`;
   const html = promoted
     ? `<p>Hi ${recipientName},</p>
-       <p>You've been promoted to <strong>STAFF</strong> of <strong>${orgName}</strong> on AgPodium.</p>
+       <p>You've been promoted to <strong>STAFF</strong> of <strong>${orgName}</strong> on UniPodium.</p>
        <p>${link(orgPath, "View org →")}</p>
-       <p>— AgPodium</p>`
+       <p>— UniPodium</p>`
     : `<p>Hi ${recipientName},</p>
-       <p>You have been removed from <strong>${orgName}</strong> on AgPodium.</p>
-       <p>— AgPodium</p>`;
+       <p>You have been removed from <strong>${orgName}</strong> on UniPodium.</p>
+       <p>— UniPodium</p>`;
   return { subject, html };
 }
 
@@ -173,12 +173,12 @@ export function bulletinDecisionEmail({
     : `Your bulletin event "${eventTitle}" was declined`;
   const html = approved
     ? `<p>Hi ${recipientName},</p>
-       <p>Your bulletin post "<strong>${eventTitle}</strong>" has been approved and is now live on AgPodium.</p>
+       <p>Your bulletin post "<strong>${eventTitle}</strong>" has been approved and is now live on UniPodium.</p>
        <p>${link("/bulletin", "View bulletin →")}</p>
-       <p>— AgPodium</p>`
+       <p>— UniPodium</p>`
     : `<p>Hi ${recipientName},</p>
        <p>Your bulletin post "<strong>${eventTitle}</strong>" was not approved.</p>
-       <p>— AgPodium</p>`;
+       <p>— UniPodium</p>`;
   return { subject, html };
 }
 
@@ -196,16 +196,16 @@ export function orgCreationDecisionEmail({
   reason?: string | null;
 }): EmailResult {
   const subject = approved
-    ? `Your org "${orgName}" has been approved on AgPodium!`
+    ? `Your org "${orgName}" has been approved on UniPodium!`
     : `Your org request for "${orgName}" was declined`;
   const html = approved
     ? `<p>Hi ${recipientName},</p>
-       <p>Great news — your org <strong>${orgName}</strong> has been approved on AgPodium!</p>
+       <p>Great news — your org <strong>${orgName}</strong> has been approved on UniPodium!</p>
        ${orgPath ? `<p>${link(orgPath, "Visit your org →")}</p>` : ""}
-       <p>— AgPodium</p>`
+       <p>— UniPodium</p>`
     : `<p>Hi ${recipientName},</p>
        <p>Your request to create <strong>${orgName}</strong> was not approved.${reason ? ` Reason: ${reason}` : ""}</p>
-       <p>— AgPodium</p>`;
+       <p>— UniPodium</p>`;
   return { subject, html };
 }
 
@@ -230,7 +230,7 @@ export function orgIncomingSpeakRequestEmail({
     <p><strong>${from}</strong> submitted a speak request for your meeting "<strong>${meetingTitle}</strong>".</p>
     <blockquote style="border-left:3px solid #e5e7eb;margin:12px 0;padding:8px 12px;color:#374151">${pitch}</blockquote>
     <p>${link(meetingPath, "Review the request →")}</p>
-    <p>— AgPodium</p>
+    <p>— UniPodium</p>
   `;
   return { subject, html };
 }
@@ -246,11 +246,11 @@ export function orgIncomingJoinRequestEmail({
   requesterEmail: string;
   orgPath: string;
 }): EmailResult {
-  const subject = `New join request for ${orgName} on AgPodium`;
+  const subject = `New join request for ${orgName} on UniPodium`;
   const html = `
     <p><strong>${requesterName}</strong> (${requesterEmail}) wants to join <strong>${orgName}</strong>.</p>
     <p>${link(orgPath, "Review on your org page →")}</p>
-    <p>— AgPodium</p>
+    <p>— UniPodium</p>
   `;
   return { subject, html };
 }

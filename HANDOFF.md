@@ -1,4 +1,4 @@
-# YellPass — Handoff Document
+# UniPodium — Handoff Document
 
 **Purpose:** transfer full project context from one Claude conversation to another (e.g. moving from phone account to computer account). Paste the "Prompt to Resume" section below to a fresh Claude on the other account.
 
@@ -7,7 +7,7 @@
 ## Prompt to Resume (paste this to a fresh Claude)
 
 ```
-I'm continuing work on a project called YellPass. Read the attached
+I'm continuing work on a project called UniPodium. Read the attached
 HANDOFF.md and PROGRESS.md, then unzip the attached codebase. We finished
 Phase 7 (bulletin board + reminder cron + no-show tracking) — all 7
 planned phases are now done. No Phase 8 is defined yet; help me figure out
@@ -24,7 +24,7 @@ tappable options input (I'm often on mobile).
 
 ## Project overview
 
-**YellPass** is a cross-org campus communication platform for TAMU (Texas A&M University), designed to solve a specific pain point: members of one org wanting to speak at another org's meeting have to email/DM back and forth to arrange it. YellPass turns that into a "click on the org, see their upcoming meetings, request a slot, chat with the directors" flow.
+**UniPodium** is a cross-org campus communication platform for TAMU (Texas A&M University), designed to solve a specific pain point: members of one org wanting to speak at another org's meeting have to email/DM back and forth to arrange it. UniPodium turns that into a "click on the org, see their upcoming meetings, request a slot, chat with the directors" flow.
 
 **Core features:**
 1. Org directory + profiles
@@ -40,9 +40,9 @@ tappable options input (I'm often on mobile).
 
 ## Naming journey (context if this comes up)
 
-- Original name: **Podium** — killed due to trademark conflict with podium.com, a well-funded SaaS *customer communication platform* (exact same category as YellPass). C&D risk on any traction.
+- Original name: **Podium** — killed due to trademark conflict with podium.com, a well-funded SaaS *customer communication platform* (exact same category as UniPodium). C&D risk on any traction.
 - Second attempt: **HowdyBoard** — killed because "Howdy" collides with TAMU's official `howdy.tamu.edu` student portal and `howdyweek.tamu.edu`. TAMU's trademark office is active and would flag brand confusion.
-- Current: **YellPass** — riff on TAMU's "Yell Practice" tradition + the double meaning of "yelling" (announcing) about your event. Trademark risk assessed as real but lower than HowdyBoard because "Yell" alone isn't as directly tied to a TAMU web platform. Rylan emailed the TAMU trademark office to preempt any objection. **Assumption: proceed with YellPass unless TAMU pushes back.**
+- Current: **UniPodium** — riff on TAMU's "Yell Practice" tradition + the double meaning of "yelling" (announcing) about your event. Trademark risk assessed as real but lower than HowdyBoard because "Yell" alone isn't as directly tied to a TAMU web platform. Rylan emailed the TAMU trademark office to preempt any objection. **Assumption: proceed with UniPodium unless TAMU pushes back.**
 
 ---
 
@@ -56,7 +56,7 @@ tappable options input (I'm often on mobile).
 
 Chose this stack because Rylan already built another app (Freats — `freats.org`) on the same stack, so zero learning curve.
 
-Domain: register `yellpass.app` or similar for ~$12 on Namecheap/Porkbun. Avoid `.com` for aftermarket price reasons; don't use `podium.*`.
+Domain: register `unipodium.app` or similar for ~$12 on Namecheap/Porkbun. Avoid `.com` for aftermarket price reasons; don't use `podium.*`.
 
 ---
 
@@ -108,7 +108,7 @@ All 7 originally-planned phases are done. No Phase 8 is scoped yet.
 ## Setup instructions (for Rylan when at his computer)
 
 1. Unzip
-2. `cd yellpass && npm install`
+2. `cd unipodium && npm install`
 3. Create a Supabase project at supabase.com
 4. Copy `.env.example` → `.env.local` and fill in the Supabase URL, anon key, service role key
 5. Run migrations in order — either via `supabase db push` after linking, or paste `supabase/migrations/00001_initial_schema.sql`, `00002_org_joins_and_creation.sql`, `00003_site_admin_and_bulletin_review.sql` into the SQL editor and run
@@ -140,4 +140,4 @@ All 7 originally-planned phases are done. No Phase 8 is scoped yet.
 
 - `HANDOFF.md` — this file
 - `PROGRESS.md` — living phase tracker with file-by-file breakdown of what's built
-- `yellpass-phase7.zip` — full codebase through Phase 7
+- `unipodium-phase7.zip` — full codebase through Phase 7

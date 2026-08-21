@@ -69,7 +69,7 @@ export default function NewOrgPage() {
             className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand"
           />
           <span className="text-xs text-gray-500 mt-1 block">
-            Lowercase letters, numbers, dashes. Used in the URL: agpodium.com/orgs/<em>slug</em>
+            Lowercase letters, numbers, dashes. Used in the URL: unipodium.com/orgs/<em>slug</em>
           </span>
         </label>
 

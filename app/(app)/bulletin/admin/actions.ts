@@ -134,7 +134,7 @@ export async function sendTestEmail(): Promise<{ ok: boolean; message: string }>
     return { ok: false, message: "RESEND_API_KEY is not set in Vercel environment variables." };
   }
   if (!process.env.RESEND_FROM_EMAIL) {
-    return { ok: false, message: "RESEND_FROM_EMAIL is not set — add it in Vercel env vars (e.g. noreply@agpodium.com)." };
+    return { ok: false, message: "RESEND_FROM_EMAIL is not set — add it in Vercel env vars (e.g. noreply@unipodium.com)." };
   }
 
   try {
@@ -142,8 +142,8 @@ export async function sendTestEmail(): Promise<{ ok: boolean; message: string }>
     const result = await resend.emails.send({
       from: FROM_EMAIL,
       to: user.email,
-      subject: "AgPodium email test ✓",
-      html: `<p>Test email from AgPodium.</p><p><b>From:</b> ${FROM_EMAIL}</p><p><b>To:</b> ${user.email}</p>`,
+      subject: "UniPodium email test ✓",
+      html: `<p>Test email from UniPodium.</p><p><b>From:</b> ${FROM_EMAIL}</p><p><b>To:</b> ${user.email}</p>`,
     });
     if ("error" in result && result.error) {
       return { ok: false, message: `Resend API error: ${JSON.stringify(result.error)}` };

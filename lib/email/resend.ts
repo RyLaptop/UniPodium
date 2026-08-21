@@ -13,6 +13,6 @@ export function getResend(): Resend {
 }
 
 // Falls back to Resend's shared sandbox sender until you verify a domain
-// (Resend dashboard → Domains). Set RESEND_FROM_EMAIL once yellpass.app is verified.
+// (Resend dashboard → Domains). Set RESEND_FROM_EMAIL once unipodium.app is verified.
 export const FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL || "AgPodium <onboarding@resend.dev>";
+  process.env.RESEND_FROM_EMAIL || "UniPodium <onboarding@resend.dev>";

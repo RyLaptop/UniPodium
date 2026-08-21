@@ -1,4 +1,4 @@
-# YellPass
+# UniPodium
 
 Cross-org campus platform for meeting speakers, event calendars, and bulletin boards.
 
@@ -14,7 +14,7 @@ Cross-org campus platform for meeting speakers, event calendars, and bulletin bo
 ### 1. Install
 
 ```bash
-cd yellpass
+cd unipodium
 npm install
 ```
 
