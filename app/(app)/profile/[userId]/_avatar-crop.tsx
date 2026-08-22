@@ -166,6 +166,9 @@ export function AvatarCrop({
 
         {/* Circle viewport */}
         <div className="flex justify-center">
+          {/* Drag-to-reposition is a mouse/touch convenience; zoom (mouse wheel) has no keyboard
+              equivalent to attach here either, so this surface is decorative, not a control. */}
+          {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
           <div
             ref={containerRef}
             className="relative overflow-hidden rounded-full border-2 border-brand select-none"

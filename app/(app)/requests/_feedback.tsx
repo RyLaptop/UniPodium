@@ -35,10 +35,7 @@ export function FeedbackForm({ requestId }: { requestId: string }) {
   };
 
   return (
-    <div
-      onClick={(e) => e.preventDefault()}
-      className="mt-3 space-y-2 border-t border-gray-100 pt-3"
-    >
+    <div className="mt-3 space-y-2 border-t border-gray-100 pt-3">
       <p className="text-xs font-medium text-gray-700">Were you ghosted by the org?</p>
       <textarea
         value={note}

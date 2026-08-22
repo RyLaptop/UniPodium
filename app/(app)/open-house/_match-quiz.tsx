@@ -44,7 +44,7 @@ export function MatchQuiz({ booths, onResults, onClose }: Props) {
               ))}
             </div>
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-lg">✕</button>
+          <button onClick={onClose} aria-label="Close" className="text-gray-400 hover:text-gray-600 text-lg">✕</button>
         </div>
 
         <h2 className="text-lg font-bold text-gray-900">{q.q}</h2>

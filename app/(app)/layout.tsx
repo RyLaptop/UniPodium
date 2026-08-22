@@ -75,6 +75,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <AuthGateProvider isAuthed={!!user}>
       <div className="min-h-screen flex flex-col">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded-md focus:shadow-lg"
+        >
+          Skip to main content
+        </a>
         <header className="relative bg-white/85 backdrop-blur-md sticky top-0 z-40">
           <div
             aria-hidden="true"
@@ -155,7 +161,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           </div>
         </header>
 
-        <main className="flex-1 max-w-6xl w-full mx-auto px-4 py-6 md:py-8">
+        <main id="main-content" className="flex-1 max-w-6xl w-full mx-auto px-4 py-6 md:py-8">
           {children}
         </main>
 

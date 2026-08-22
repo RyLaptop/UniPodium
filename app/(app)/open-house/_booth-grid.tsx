@@ -69,7 +69,7 @@ export function BoothGrid({ booths, stamps, totalEntries }: Props) {
                   </span>
                 </div>
               </div>
-              <button onClick={() => setPreviewBooth(null)} className="text-gray-400 hover:text-gray-600 text-xl shrink-0">✕</button>
+              <button onClick={() => setPreviewBooth(null)} aria-label="Close" className="text-gray-400 hover:text-gray-600 text-xl shrink-0">✕</button>
             </div>
 
             {previewBooth.elevator_pitch && (
@@ -116,7 +116,7 @@ export function BoothGrid({ booths, stamps, totalEntries }: Props) {
                   {totalEntries}/5 prize pool {totalEntries === 1 ? "entry" : "entries"} earned
                 </p>
               </div>
-              <button onClick={() => setPassportOpen(false)} className="text-gray-400 hover:text-gray-600 text-lg">✕</button>
+              <button onClick={() => setPassportOpen(false)} aria-label="Close" className="text-gray-400 hover:text-gray-600 text-lg">✕</button>
             </div>
             <div className="w-full bg-gray-100 rounded-full h-2">
               <div className="bg-brand h-2 rounded-full transition-all" style={{ width: `${(totalEntries / 5) * 100}%` }} />

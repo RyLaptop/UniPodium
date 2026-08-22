@@ -147,7 +147,7 @@ export function MakeRequest({ allOrgs, myOrgs }: { allOrgs: Org[]; myOrgs: MyOrg
           {step === "meetings" && "Step 2 of 3: Select meetings"}
           {step === "pitch" && "Step 3 of 3: Your pitch"}
         </h3>
-        <button onClick={close} className="text-gray-400 hover:text-gray-600 text-lg leading-none">✕</button>
+        <button onClick={close} aria-label="Close" className="text-gray-400 hover:text-gray-600 text-lg leading-none">✕</button>
       </div>
 
       {/* Step 1: Org selection */}
@@ -321,8 +321,9 @@ export function MakeRequest({ allOrgs, myOrgs }: { allOrgs: Org[]; myOrgs: MyOrg
 
           {myOrgs.length > 0 && (
             <div className="block">
-              <label className="text-sm font-medium">Speaking on behalf of</label>
+              <label htmlFor="speaking-as-org" className="text-sm font-medium">Speaking on behalf of</label>
               <select
+                id="speaking-as-org"
                 value={speakingAsOrgId}
                 onChange={(e) => setSpeakingAsOrgId(e.target.value)}
                 className="mt-1 w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand bg-white"

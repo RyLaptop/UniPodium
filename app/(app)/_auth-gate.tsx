@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,11 +9,25 @@ type AuthGateCtx = { isAuthed: boolean; open: () => void };
 const Ctx = createContext<AuthGateCtx>({ isAuthed: false, open: () => {} });
 
 function AuthModal({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [onClose]);
+
   return (
+    // Mouse-only convenience close on the backdrop; Escape (above) and the visible
+    // Close button give keyboard/screen-reader users an equivalent path.
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
     <div
+      role="dialog"
+      aria-modal="true"
       className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50"
       onClick={onClose}
     >
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- stops the backdrop's onClose from firing when clicking inside the modal */}
       <div
         className="relative bg-white rounded-lg shadow-2xl p-8 w-[30vw] min-w-[300px] max-w-md"
         onClick={(e) => e.stopPropagation()}

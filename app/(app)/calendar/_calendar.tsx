@@ -64,9 +64,9 @@ export function Calendar({ events }: { events: CalEvent[] }) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <button onClick={prev} className="p-2 hover:bg-gray-100 rounded-lg text-gray-600 text-xl leading-none">‹</button>
+        <button onClick={prev} aria-label="Previous month" className="p-2 hover:bg-gray-100 rounded-lg text-gray-600 text-xl leading-none">‹</button>
         <h2 className="text-lg font-semibold">{MONTHS[month]} {year}</h2>
-        <button onClick={next} className="p-2 hover:bg-gray-100 rounded-lg text-gray-600 text-xl leading-none">›</button>
+        <button onClick={next} aria-label="Next month" className="p-2 hover:bg-gray-100 rounded-lg text-gray-600 text-xl leading-none">›</button>
       </div>
 
       <div className="grid grid-cols-7 text-center mb-1">

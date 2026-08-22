@@ -102,8 +102,8 @@ export function BoothForm({ orgId, orgSlug, existing, existingEvents }: Props) {
     <div className="space-y-8 max-w-2xl">
       {/* Category */}
       <div className="space-y-2">
-        <label className="text-sm font-semibold text-gray-700">Category</label>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}
+        <label htmlFor="booth-category" className="text-sm font-semibold text-gray-700">Category</label>
+        <select id="booth-category" value={category} onChange={(e) => setCategory(e.target.value)}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand">
           <option value="">— Select a category —</option>
           {BOOTH_CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -112,8 +112,8 @@ export function BoothForm({ orgId, orgSlug, existing, existingEvents }: Props) {
 
       {/* Elevator pitch */}
       <div className="space-y-2">
-        <label className="text-sm font-semibold text-gray-700">Elevator Pitch</label>
-        <textarea value={pitch} onChange={(e) => setPitch(e.target.value)} rows={4} maxLength={500}
+        <label htmlFor="booth-pitch" className="text-sm font-semibold text-gray-700">Elevator Pitch</label>
+        <textarea id="booth-pitch" value={pitch} onChange={(e) => setPitch(e.target.value)} rows={4} maxLength={500}
           placeholder="Sell your org in 2-3 sentences. What do you do, why should someone join?"
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm resize-none focus:outline-none focus:ring-2 focus:ring-brand" />
         <p className="text-xs text-gray-400 text-right">{pitch.length}/500</p>
@@ -121,7 +121,7 @@ export function BoothForm({ orgId, orgSlug, existing, existingEvents }: Props) {
 
       {/* Cover image */}
       <div className="space-y-2">
-        <label className="text-sm font-semibold text-gray-700">Cover Image</label>
+        <label htmlFor="booth-cover" className="text-sm font-semibold text-gray-700">Cover Image</label>
         {coverUrl && (
           <div className="relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -129,14 +129,14 @@ export function BoothForm({ orgId, orgSlug, existing, existingEvents }: Props) {
             <button onClick={() => setCoverUrl("")} className="absolute top-2 right-2 bg-white rounded-full px-2 py-0.5 text-xs text-red-500 border border-red-200">Remove</button>
           </div>
         )}
-        <input type="file" accept="image/*" onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0], "cover")}
+        <input id="booth-cover" type="file" accept="image/*" onChange={(e) => e.target.files?.[0] && uploadImage(e.target.files[0], "cover")}
           className="text-sm text-gray-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:bg-brand file:text-white file:text-sm hover:file:bg-brand-dark" />
         {uploadingCover && <p className="text-xs text-gray-400">Uploading…</p>}
       </div>
 
       {/* Gallery images */}
       <div className="space-y-2">
-        <label className="text-sm font-semibold text-gray-700">Gallery Images <span className="font-normal text-gray-400">(up to 5)</span></label>
+        <p className="text-sm font-semibold text-gray-700">Gallery Images <span className="font-normal text-gray-400">(up to 5)</span></p>
         {imageUrls.length > 0 && (
           <div className="grid grid-cols-3 gap-2">
             {imageUrls.map((url, i) => (
@@ -160,26 +160,26 @@ export function BoothForm({ orgId, orgSlug, existing, existingEvents }: Props) {
 
       {/* Video */}
       <div className="space-y-2">
-        <label className="text-sm font-semibold text-gray-700">Video URL <span className="font-normal text-gray-400">(YouTube, TikTok, or Instagram Reel — ~30 sec)</span></label>
-        <input value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)} type="url"
+        <label htmlFor="booth-video" className="text-sm font-semibold text-gray-700">Video URL <span className="font-normal text-gray-400">(YouTube, TikTok, or Instagram Reel — ~30 sec)</span></label>
+        <input id="booth-video" value={videoUrl} onChange={(e) => setVideoUrl(e.target.value)} type="url"
           placeholder="https://youtube.com/watch?v=..."
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand" />
       </div>
 
       {/* Links */}
       <div className="space-y-3">
-        <label className="text-sm font-semibold text-gray-700">Links</label>
-        <input value={website} onChange={(e) => setWebsite(e.target.value)} type="url" placeholder="Website URL"
+        <p className="text-sm font-semibold text-gray-700">Links</p>
+        <input value={website} onChange={(e) => setWebsite(e.target.value)} type="url" placeholder="Website URL" aria-label="Website URL"
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand" />
-        <input value={instagram} onChange={(e) => setInstagram(e.target.value)} type="url" placeholder="Instagram URL"
+        <input value={instagram} onChange={(e) => setInstagram(e.target.value)} type="url" placeholder="Instagram URL" aria-label="Instagram URL"
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand" />
-        <input value={tiktok} onChange={(e) => setTiktok(e.target.value)} type="url" placeholder="TikTok URL"
+        <input value={tiktok} onChange={(e) => setTiktok(e.target.value)} type="url" placeholder="TikTok URL" aria-label="TikTok URL"
           className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand" />
       </div>
 
       {/* Rush events */}
       <div className="space-y-3">
-        <label className="text-sm font-semibold text-gray-700">Rush / Interest Events</label>
+        <p className="text-sm font-semibold text-gray-700">Rush / Interest Events</p>
         {events.length > 0 && (
           <ul className="space-y-2">
             {events.map((ev) => (

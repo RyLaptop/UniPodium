@@ -139,13 +139,19 @@ export function BoothDetail({ booth, events, initialStamp, isAuthed }: Props) {
             )}
           </div>
           {ytId ? (
-            <div className="rounded-xl overflow-hidden aspect-video bg-gray-100"
-              onClick={() => { if (!videoStamped) doStamp("video"); }}>
+            // The "watched" credit also fires on iframe focus (below), giving keyboard users an equivalent path.
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+            <div
+              className="rounded-xl overflow-hidden aspect-video bg-gray-100"
+              onClick={() => { if (!videoStamped) doStamp("video"); }}
+            >
               <iframe
                 src={`https://www.youtube.com/embed/${ytId}`}
+                title="Booth video"
                 className="w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+                onFocus={() => { if (!videoStamped) doStamp("video"); }}
               />
             </div>
           ) : (
