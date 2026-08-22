@@ -8,6 +8,7 @@ import { notify } from "@/lib/notifications";
 import { sendEmail } from "@/lib/email/send";
 import { bulletinDecisionEmail } from "@/lib/email/templates";
 import { getUniversity } from "@/lib/university";
+import { validateImageUpload } from "@/lib/utils";
 
 export type SubmitBulletinResult =
   | { ok: true; id: string }
@@ -98,6 +99,7 @@ export async function submitBulletinPost(
 
   async function uploadImage(file: File, slot: "thumbnail" | "banner") {
     if (!file || file.size === 0) return;
+    if (validateImageUpload(file)) return;
     const ext = file.name.split(".").pop() ?? "jpg";
     const path = `${postId}/${slot}.${ext}`;
     const bytes = await file.arrayBuffer();
@@ -221,6 +223,7 @@ export async function editBulletinPost(
   const postId = id;
   async function uploadImage(file: File, slot: "thumbnail" | "banner") {
     if (!file || file.size === 0) return;
+    if (validateImageUpload(file)) return;
     const ext = file.name.split(".").pop() ?? "jpg";
     const path = `${postId}/${slot}.${ext}`;
     const bytes = await file.arrayBuffer();

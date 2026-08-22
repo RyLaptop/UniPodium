@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { isOrgStaff } from "@/lib/auth/org-access";
+import { validateImageUpload } from "@/lib/utils";
 
 export async function saveBooth(orgId: string, orgSlug: string, data: {
   elevator_pitch: string;
@@ -62,6 +63,8 @@ export async function getBoothImageUploadUrl(orgId: string, fileName: string, co
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { ok: false as const, error: "Not signed in" };
   if (!await isOrgStaff(supabase, orgId, user.id)) return { ok: false as const, error: "Staff only" };
+  const uploadError = validateImageUpload({ type: contentType });
+  if (uploadError) return { ok: false as const, error: uploadError };
 
   const ext = fileName.split(".").pop()?.toLowerCase() ?? "jpg";
   const path = `${orgId}/${Date.now()}.${ext}`;
