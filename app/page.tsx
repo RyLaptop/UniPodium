@@ -108,6 +108,10 @@ export default async function HomePage() {
             <UniSelector currentUni={currentUni} />
           </div>
         </div>
+        <div className="relative mt-8 flex justify-center gap-4 text-xs text-gray-400">
+          <a href="/terms" className="hover:text-gray-600">Terms</a>
+          <a href="/privacy" className="hover:text-gray-600">Privacy</a>
+        </div>
       </div>
     </div>
   );
